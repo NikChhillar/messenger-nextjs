@@ -6,6 +6,9 @@ import { useCallback, useState } from "react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import AuthBtn from "./AuthBtn";
 import { BsGithub, BsGoogle } from "react-icons/bs";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { signIn } from "next-auth/react";
 
 type Variant = "LOGIN" | "REGISTER";
 
@@ -39,11 +42,29 @@ const AuthForm = () => {
     setIsLoading(true);
     if (variant === "REGISTER") {
       //
+      axios
+        .post("/api/register", data)
+        .catch(() => toast.error("Something went wrong..."))
+        .finally(() => setIsLoading(false));
       //
     }
 
     if (variant === "LOGIN") {
       //
+      signIn("credentials", {
+        ...data,
+        redirect: false,
+      })
+        .then((callback) => {
+          if (callback?.error) {
+            toast.error("Invalid credentials...");
+          }
+
+          if (callback?.ok && !callback.error) {
+            toast.success("Successfully logged in...");
+          }
+        })
+        .finally(() => setIsLoading(false));
       //
     }
   };
@@ -52,6 +73,17 @@ const AuthForm = () => {
     setIsLoading(true);
 
     //
+    signIn(action, { redirect: false })
+      .then((callback) => {
+        if (callback?.error) {
+          toast.error("Invalid credentials...");
+        }
+
+        if (callback?.ok && !callback.error) {
+          toast.success("Successfully logged in...");
+        }
+      })
+      .finally(() => setIsLoading(false));
 
     //
   };
@@ -97,14 +129,7 @@ const AuthForm = () => {
 
         <div className="mt-6">
           <div className="relative">
-            <div
-              className="
-                absolute 
-                inset-0 
-                flex 
-                items-center
-              "
-            >
+            <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-300" />
             </div>
             <div className="relative flex justify-center text-sm">
