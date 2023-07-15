@@ -10,6 +10,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { error } from "console";
 
 type Variant = "LOGIN" | "REGISTER";
 
@@ -64,7 +65,7 @@ const AuthForm = () => {
         )
         .then((callback) => {
           if (callback?.error) {
-            toast.error("Invalid credentials...");
+            toast.error("Invalid credentials....");
           }
 
           if (callback?.ok && !callback.error) {
