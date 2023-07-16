@@ -97,7 +97,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
           <p
             className={clsx(
               `truncate text-sm`,
-              hasSeen ? "text-gray-300" : "text-gray-600 font-medium"
+              hasSeen ? "text-gray-300" : "text-gray-800 font-medium"
             )}
           >
             {lastMessageText}
