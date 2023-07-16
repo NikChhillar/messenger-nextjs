@@ -72,7 +72,7 @@ const SettingModal: React.FC<SettingsModalProps> = ({
               Profile
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">
-              Edit your public information.
+              Change your name and avatar here...
             </p>
             <div className="mt-10 flex flex-col gap-y-8">
               <Input
