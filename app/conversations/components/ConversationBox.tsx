@@ -1,6 +1,7 @@
 "use client";
 
 import Avatar from "@/components/Avatar";
+import AvatarGroup from "@/components/AvatarGroup";
 import useOtherUser from "@/hooks/useOtherUser";
 import { FullConversationType } from "@/types";
 import clsx from "clsx";
@@ -80,7 +81,11 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
         selected ? "bg-neutral-100" : "bg-white"
       )}
     >
-      <Avatar user={otherUser} />
+      {data.isGroup ? (
+        <AvatarGroup users={data.users} />
+      ) : (
+        <Avatar user={otherUser} />
+      )}
       <div className="min-w-0 flex-1">
         <div className="focus:outline-none">
           <span className="absolute inset-0" aria-hidden="true" />
@@ -97,7 +102,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
           <p
             className={clsx(
               `truncate text-sm`,
-              hasSeen ? "text-gray-300" : "text-gray-800 font-medium"
+              hasSeen ? "text-gray-500" : "text-gray-800 font-medium"
             )}
           >
             {lastMessageText}

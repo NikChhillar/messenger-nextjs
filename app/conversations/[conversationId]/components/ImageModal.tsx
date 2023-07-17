@@ -1,5 +1,6 @@
 "use client";
 
+import Modal from "@/components/modals/Modal";
 import Image from "next/image";
 
 interface ImageModalProps {
@@ -14,10 +15,11 @@ const ImageModal: React.FC<ImageModalProps> = ({ isOpen, onClose, src }) => {
   }
 
   return (
-    <div className="w-8 h-8">
-      Image
-      {/* <Image className="object-cover" fill alt="Image" src={src} /> */}
-    </div>
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <div className="w-80 h-80">
+        <Image className="object-cover" fill alt="Image" src={src} />
+      </div>
+    </Modal>
   );
 };
 
